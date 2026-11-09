@@ -49,34 +49,20 @@ flutter run -d chrome --dart-define=CLIENT_ID=pdm-ab12cd --dart-define=CLIENT_SE
 
 Your `clientId` and `clientSecret` are in issue #1 of your `pdm-miniprojeto` repository (or, for the group project, in issue #1 of your group's repository). They go on the command line, never in the code and never in git. Pressing F5 in VS Code does not pass them. Keep the `flutter run` command on one line: PowerShell does not accept `\` to split it.
 
-Log in. On `main` you see the islands and, above them, a card with the button "Onde estou?". Tap it: the card says there is no position. That is the starting point. The map button in the app bar already opens a map of the Azores, with nine small pins without names. In the terminal where `flutter run` is running, `r` is hot reload, `R` is hot restart and `q` quits. Open a second terminal for the `git` commands.
+Log in. The app is finished: above the islands there is a card with the button "Onde estou?", and the map button in the app bar opens the Azores with a pin on each island. In the terminal where `flutter run` is running, `r` is hot reload, `R` is hot restart and `q` quits.
 
 Chrome asks for the position with its own dialog, like a phone does. To test "denied" again, click the icon on the left of the address bar and reset the permission.
 
-## The steps
+## Where the magic happens
 
-There is one branch per step. `main` is the starting point; `passo-4` is the final state. Each step is a `TODO` with its number in the code.
+Everything is on `main`. These are the four places worth reading first:
 
-| Step | Branch | What you do | In the app |
-|---|---|---|---|
-| 1 | `passo-1` | `lib/location/location_service.dart`: is the location service on? Ask for permission and turn the answer into one of four states (`TODO 1`). | "Onde estou?" shows the dialog. Accept: the card shows your coordinates. Deny: the card says so, and nothing crashes. |
-| 2 | `passo-2` | `lib/location/nearest.dart`: measure the distance to every island and keep the shortest; `lib/state/location_notifier.dart`: call it after the position arrives (`TODO 2`). | The card says "Estás a 16 km de São Miguel". |
-| 3 | `passo-3` | `lib/screens/map_screen.dart`: a `Marker` per island, with a pin and the name, that opens the sheet when tapped (`TODO 3`). | Nine pins on the map. Tap one: the sheet with the island. |
-| 4 | `passo-4` | `lib/screens/map_screen.dart`: the button "A minha posição" asks the `LocationNotifier` and moves the camera there (`TODO 4`). | A red pin where you are, and the map centred on it. |
-
-## Syncing with the lesson
-
-At the end of each step, finished or not, run the commands on the slide, one at a time, in the second terminal. They put aside what you wrote and give you the code of that step:
-
-```bash
-git stash -u
-git checkout passo-1
-flutter pub get
-```
-
-Then press `R` in the `flutter run` terminal (hot restart).
-
-To go back to the start: `git stash -u` and then `git checkout main`. To see a step in one place: `git diff main passo-1`, `git diff passo-1 passo-2` and so on.
+| What | Where | In the app |
+|---|---|---|
+| Ask for permission and turn the answer into one of four states | `check()` in `lib/location/location_service.dart` | "Onde estou?" shows the dialog. Accept: the card shows where you are. Deny: the card says so, and nothing crashes. |
+| Measure the distance to every island and keep the shortest | `nearestIsland()` in `lib/location/nearest.dart`, called from `locate()` in `lib/state/location_notifier.dart` | The card says "Estás a 16 km de São Miguel". |
+| A pin with the name for each island, that opens the sheet when tapped | `_marker()` in `lib/screens/map_screen.dart` | Nine pins on the map. Tap one: the sheet with the island. |
+| "A minha posição" asks the `LocationNotifier` and moves the camera | `_goToMe()` in `lib/screens/map_screen.dart` | A red pin where you are, and the map centred on it. |
 
 ## What each platform needs
 
