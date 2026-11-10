@@ -1,4 +1,4 @@
-# pdm-aula-21 · Where am I, the nearest island and the map
+# pdm-aula-22 · Where am I, the nearest island and the map
 
 Repository for lesson 21 of PDM (Mobile Device Programming), CTeSP DAW, ESTA, University of the Azores, 2026/27.
 
@@ -41,8 +41,8 @@ Packages added today: `geolocator` (permission, position, distance), `flutter_ma
 ## Getting started
 
 ```bash
-git clone https://github.com/Tiago-Rocha/pdm-aula-21.git
-cd pdm-aula-21
+git clone https://github.com/Tiago-Rocha/pdm-aula-22.git
+cd pdm-aula-22
 flutter pub get
 flutter run -d chrome --dart-define=CLIENT_ID=pdm-ab12cd --dart-define=CLIENT_SECRET=your-secret
 ```
